@@ -1,0 +1,34 @@
+package:
+  name: timidi
+  version: {{ environ.get('GIT_DESCRIBE_TAG', "0.0.0") }}
+
+source:
+  path: .
+
+build:
+  # The build number should be incremented for new builds of the same version
+  number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
+  script: python setup.py install
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - numpy
+    - python
+
+test:
+  requires:
+    - numpy
+    - scipy
+    - pillow 
+  imports:
+    - timidi
+  commands:
+    - python -m timidi.testing 
+
+about:
+  home: https://github.com/meawoppl/timidi
+  license: BSDish
+  summary: tool to make MIDI musics.
